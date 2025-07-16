@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery at Place- Servicio de Mensajería y Reparto</title>
+    <style>
+        /* Estilos CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: #e74c3c;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #e74c3c;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('data:image/jpeg;base64,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');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .services {
+            padding: 5rem 0;
+            background-color: #f9f9f9;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+        }
+        
+        .section-title p {
+            color: #7f8c8d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-card i {
+            font-size: 2.5rem;
+            color: #e74c3c;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .about {
+            padding: 5rem 0;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-img img {
+            width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: #7f8c8d;
+        }
+        
+        .contact {
+            padding: 5rem 0;
+            background-color: #f9f9f9;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-info p {
+            margin-bottom: 1.5rem;
+            color: #7f8c8d;
+        }
+        
+        .contact-info ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-info ul li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info ul li i {
+            margin-right: 0.5rem;
+            color: #e74c3c;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #e74c3c;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-column ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #e74c3c;
+        }
+        
+        .copyright {
+            border-top: 1px solid #34495e;
+            padding-top: 2rem;
+            color: #bdc3c7;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-img {
+                order: -1;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Delivery at <span> Place</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-content">
+                <div>
+                    <h1>Soluciones de Mensajería y Reparto para tu Empresa</h1>
+                    <p>Ofrecemos servicios rápidos, seguros y confiables para satisfacer todas tus necesidades de logística y distribución.</p>
+                    <a href="#contacto" class="btn">Contáctanos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="servicios">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Servicios</h2>
+                <p>Brindamos soluciones personalizadas para cada tipo de negocio, asegurando la entrega puntual y en perfecto estado de tus productos.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h3>Envíos Express</h3>
+                    <p>Entrega urgente en el mismo día para documentos y paquetes pequeños dentro de la ciudad.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-truck"></i>
+                    <h3>Distribución Empresarial</h3>
+                    <p>Servicio de reparto programado para empresas con múltiples entregas diarias.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-boxes"></i>
+                    <h3>Logística de Almacén</h3>
+                    <p>Gestión integral de inventario, picking y packing para e-commerce y retail.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-temperature-low"></i>
+                    <h3>Envíos Contra entrega</h3>
+                    <p>Realizamos tus entregas bajo entrega, cobrando en el momento de la entrega /p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-lock"></i>
+                    <h3>Envíos de Valores</h3>
+                    <p>Transporte seguro de documentos confidenciales, efectivo y objetos de valor.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-globe-americas"></i>
+                    <h3>Envíos Nacionales</h3>
+                    <p>Cobertura en todo el territorio nacional con tiempos de entrega garantizados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="nosotros">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Sobre Nosotros</h2>
+                    <p>Delivery at Place nació en 2018 con la misión de revolucionar el servicio de mensajería y reparto en el país. Desde entonces, hemos crecido gracias a nuestro compromiso con la excelencia y la satisfacción del cliente.</p>
+                    <p>Nuestro equipo están altamente capacitados en logística y distribución, utilizando tecnología de punta para garantizar la trazabilidad de cada envío desde el origen hasta el destino.</p>
+                    <p>somos reconocidos por la labor que realizamos en cada entrega, dandonos a conocer y comprometiendonos contigo para que tu empresa o emprendimiento pueda crecer.</p>
+                    <a href="#contacto" class="btn">Más información</a>
+                </div>
+                <div class="about-img">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZxyAn5sHcLh1unUXHlyqyWiXh_g8jJ1TT8g&s" alt="Delivery at Place">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contacto">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contacto</h2>
+                <p>Estamos listos para atender tus necesidades de mensajería y reparto. Contáctanos para una cotización personalizada.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Información de Contacto</h3>
+                    <p>No dudes en comunicarte con nosotros a través de cualquiera de estos canales:</p>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 30 Calle 34-96 Colonia Santa Ana zona 5,</li>
+                        <li><i class="fas fa-phone"></i> +502 4091-8991</li>
+                        <li><i class="fas fa-envelope"></i> deliveryatplace.contac@gmail.com</li>
+                        <li><i class="fas fa-clock"></i> Lunes a Viernes: 8:00 - 18:00</li>
+                        <li><i class="fas fa-clock"></i> Sábados: 9:00 - 13:00</li>
+                    </ul>
+                    <h3>Síguenos</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="Nombre completo" required>
+                        <input type="email" placeholder="Correo electrónico" required>
+                        <input type="tel" placeholder="Teléfono">
+                        <select required>
+                            <option value="" disabled selected>Selecciona un servicio</option>
+                            <option value="express">Envíos Express</option>
+                            <option value="empresarial">Distribución Empresarial</option>
+                            <option value="almacen">Logística de Almacén</option>
+                            <option value="refrigerados">Envíos Refrigerados</option>
+                            <option value="valores">Envíos de Valores</option>
+                            <option value="nacionales">Envíos Nacionales</option>
+                        </select>
+                        <textarea placeholder="Mensaje" required></textarea>
+                        <button type="submit" class="btn">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Delivery at Place</h3>
+                    <p>Líderes en soluciones de mensajería y reparto empresarial, comprometidos con la excelencia y la satisfacción del cliente.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li><a href="#">Envíos Express</a></li>
+                        <li><a href="#">Distribución Empresarial</a></li>
+                        <li><a href="#">Logística de Almacén</a></li>
+                        <li><a href="#">Envíos Nacionales</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Aviso Legal</a></li>
+                        <li><a href="#">Política de Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2018 Delivery at Place. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
